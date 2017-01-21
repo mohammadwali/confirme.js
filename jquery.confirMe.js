@@ -134,8 +134,12 @@
 
             a.text(text)
                 .addClass(DEFAULT_BUTTON_CLASS)
-                .addClass((name === "confirm" ? "confirme-popup-confirm" : name === "cancel" && "confirme-popup-cancel" || ""))
                 .data("confirMeName", name);
+
+
+            if (name === "confirm" || name === "cancel") {
+                a.addClass("confirme-popup-" + name);
+            }
 
             li.append(a);
 
