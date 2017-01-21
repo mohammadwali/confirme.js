@@ -15,6 +15,8 @@
  *         cancel: "No",
  *         custom: "Subscribe"
  *     },
+ *     closeOnOuterClick: false,
+ *     cancelOnESCpress: false,
  *     classes: {
  *         custom: ["subscribe-button"]
  *     },
