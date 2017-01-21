@@ -45,8 +45,6 @@
     const INIT_DELAY = 150;
     const DEFAULT_BUTTON_CLASS = "confirMe-button";
 
-    var avialableModals = [];
-
     var defaultOptions = {};
     defaultOptions.message = "Are you sure you want to do this ?";
     defaultOptions.labels = {};
@@ -70,8 +68,8 @@
         ///setting up message
         data.selectors.messageContainer.text(settings.message);
 
-        //caching modal object
-        avialableModals.push(data);
+        //TODO check if outer click needs to trigger cancel
+
 
         //pushing modal to body
         $("body").append(data.selectors.modal);
@@ -107,12 +105,6 @@
         }
 
         function flush() {
-            $.each(avialableModals, function (modalObject, index) {
-                if (modalObject.id === data.id) {
-                    avialableModals.splice(index, 1);
-                }
-            });
-
             data.selectors.buttons.off("click", clickHandler);
             data = null;
         }
@@ -142,6 +134,8 @@
             if (name === "confirm" || name === "cancel") {
                 a.addClass("confirme-popup-" + name);
             }
+
+            //todo add class to button from sent options
 
             li.append(a);
 
