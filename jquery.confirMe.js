@@ -125,17 +125,17 @@
         $.each(settings.labels, function (name, text) {
             var li = $("<li></li>");
             var a = $("<a class='btn btn-md rounded w-xs'></a>");
-
-            a.text(text)
-                .addClass(DEFAULT_BUTTON_CLASS)
-                .data("confirMeName", name);
+            var classes = settings.classes[name] || [];
 
 
             if (name === "confirm" || name === "cancel") {
                 a.addClass("confirme-popup-" + name);
             }
 
-            //todo add class to button from sent options
+            a.text(text)
+                .addClass(DEFAULT_BUTTON_CLASS)
+                .addClass(classes.join(" "))
+                .data("confirMeName", name);
 
             li.append(a);
 
