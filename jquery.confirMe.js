@@ -44,6 +44,7 @@
     const REMOVE_DELAY = 200;
     const INIT_DELAY = 150;
     const DEFAULT_BUTTON_CLASS = "confirMe-button";
+    const DEFAULT_LABEL_NAMES = ["confirm", "cancel"];
 
     var defaultOptions = {};
     defaultOptions.message = "Are you sure you want to do this ?";
@@ -87,6 +88,10 @@
         function clickHandler(event) {
             var button = $(this);
             var name = button.data("confirMeName");
+
+            if (DEFAULT_LABEL_NAMES.indexOf(name) !== -1) {
+                closeModal();
+            }
 
             utils.dispatch(this, [name, closeModal, button, event], settings.on);
 
