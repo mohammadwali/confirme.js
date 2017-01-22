@@ -15,8 +15,7 @@
  *         cancel: "No",
  *         custom: "Subscribe"
  *     },
- *     closeOnOuterClick: false,
- *     cancelOnESCpress: false,
+ *     closeOnDefaultButtonsClick: true,
  *     classes: {
  *         custom: ["subscribe-button"]
  *     },
@@ -57,6 +56,8 @@
 
     defaultOptions.on = utils.noop;
 
+    defaultOptions.closeOnDefaultButtonsClick = true;
+
 
     return confirMe;
 
@@ -89,7 +90,7 @@
             var button = $(this);
             var name = button.data("confirMeName");
 
-            if (DEFAULT_LABEL_NAMES.indexOf(name) !== -1) {
+            if (settings.closeOnDefaultButtonsClick && DEFAULT_LABEL_NAMES.indexOf(name) !== -1) {
                 closeModal();
             }
 
