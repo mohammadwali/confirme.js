@@ -11,5 +11,13 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-uglifyjs": "^0.6.2"
+  },
+  "devDependencies": {
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-load-plugins": "^1.4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-uglifyjs": "^0.6.2"
   }
 }
