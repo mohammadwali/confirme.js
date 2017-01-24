@@ -4,7 +4,7 @@
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  *
- * Copyright 2017, Mohammad Wali
+ * Copyright 2014 - Present, Mohammad Wali
  *
  * @example
  *
