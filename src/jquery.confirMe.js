@@ -120,7 +120,7 @@
         var wrapper = $("<div class='confirme-popup' role='alertdialog'></div>");
         var container = $("<div class='confirme-popup-container'></div>");
         var messageContainer = $("<p></p>");
-        var buttonsContainer = $("<ul class='confirme-buttons list-inline m-n p-b p-l p-r'>");
+        var buttonsContainer = $("<ul class='confirme-buttons'>");
         var wrapperId = utils.randId();
 
         container.append(messageContainer);
