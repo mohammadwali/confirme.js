@@ -1,5 +1,5 @@
 /**
- * confirMe.js v2.0.0
+ * confirMe.js v2.0.1
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -9,20 +9,20 @@
  * @example
  *
  *  $.confirMe({
- *     message: "Do you want to buy this or subscribe for later?",
- *     labels: {
- *         confirm: "Yes",
- *         cancel: "No",
- *         custom: "Subscribe"
- *     },
- *     closeOnDefaultButtonsClick: true,
- *     classes: {
- *         custom: ["subscribe-button"]
- *     },
- *     on: function(name, closeModal, button, event) {
+ *      message: "Do you want to buy this or subscribe for later?",
+ *      labels: [
+ *          {
+ *              type: "custom",
+ *              name: "Subscribe",
+ *              classNames: ["subscribe-button"],
+ *              priority: -1
+ *          }
+ *      ],
+ *      closeOnDefaultButtonsClick: true,
+ *      on: function (type, closeModal, button, event) {
  *
- *     }
- * })
+ *      }
+ *  });
  *
  *
  */
@@ -47,12 +47,15 @@
 
     var defaultOptions = {};
     defaultOptions.message = "Are you sure you want to do this ?";
-    defaultOptions.labels = {};
-    defaultOptions.labels.confirm = "Yes";
-    defaultOptions.labels.cancel = "No";
-
-    defaultOptions.classes = {};
-    defaultOptions.classes.confirm = [];
+    defaultOptions.labels = [{
+        priority: 0,
+        type: "confirm",
+        name: "Yes"
+    }, {
+        priority: 1,
+        type: "cancel",
+        name: "No"
+    }];
 
     defaultOptions.on = utils.noop;
 
@@ -62,10 +65,21 @@
     return confirMe;
 
     function confirMe(options) {
+        var data;
         var settings = utils.mergeObj(defaultOptions, options);
 
+        if (options.labels) {
+            //merging the labels manually
+            settings.labels = utils.mergeByProp(defaultOptions.labels, options.labels, "type");
+        }
+
+        //sorting labels by priority
+        settings.labels = settings.labels.sort(function (a, b) {
+            return a.priority - b.priority;
+        });
+
         ///generating buttons and doing rest of stuff
-        var data = generateModal(settings);
+        data = generateModal(settings);
 
         ///setting up message
         data.selectors.messageContainer.text(settings.message);
@@ -128,20 +142,19 @@
         wrapper.append(container);
         wrapper.attr("id", "confirMe-" + wrapperId);
 
-        $.each(settings.labels, function (name, text) {
+        $.each(settings.labels, function (index, label) {
             var li = $("<li></li>");
             var a = $("<a class='btn btn-md rounded w-xs'></a>");
-            var classes = settings.classes[name] || [];
+            var classes = label.classNames || [];
 
-
-            if (name === "confirm" || name === "cancel") {
-                a.addClass("confirme-popup-" + name);
+            if (label.type === "confirm" || label.type === "cancel") {
+                a.addClass("confirme-popup-" + label.type);
             }
 
-            a.text(text)
+            a.text(label.name)
                 .addClass(DEFAULT_BUTTON_CLASS)
                 .addClass(classes.join(" "))
-                .data("confirMeName", name);
+                .data("confirMeName", label.type);
 
             li.append(a);
 
@@ -180,6 +193,15 @@
         },
         randId: function () {
             return Math.random().toString(36).substr(2, 10);
+        },
+        mergeByProp: function (a, b, prop) {
+            var reduced = a.filter(function (aitem) {
+                return !b.find(function (bitem) {
+                    return aitem[prop] === bitem[prop];
+                });
+            });
+            return reduced.concat(b);
         }
+
     };
 }());
