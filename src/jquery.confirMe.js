@@ -39,11 +39,10 @@
 
 })(window, function (window, $, utils) {
 
-    const ESCAPE_KEY_CODE = 27;
-    const REMOVE_DELAY = 200;
-    const INIT_DELAY = 150;
-    const DEFAULT_BUTTON_CLASS = "confirMe-button";
-    const DEFAULT_LABEL_NAMES = ["confirm", "cancel"];
+    var REMOVE_DELAY = 200;
+    var INIT_DELAY = 150;
+    var DEFAULT_BUTTON_CLASS = "confirMe-button";
+    var DEFAULT_LABEL_NAMES = ["confirm", "cancel"];
 
     var defaultOptions = {};
     defaultOptions.message = "Are you sure you want to do this ?";
